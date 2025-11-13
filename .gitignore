@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vscode/
+.idea/
+*.log
+bin/
+*.exe
+*.out
+*.test
+.env
+**/inventory.db
+**/billing.db
