@@ -1,0 +1,4 @@
+/* estilos básicos */ 
+body { font-family: Roboto, Arial, sans-serif; margin: 16px; }
+mat-toolbar { position: sticky; top: 0; z-index: 2; }
+.container { max-width: 900px; margin: 0 auto; }
