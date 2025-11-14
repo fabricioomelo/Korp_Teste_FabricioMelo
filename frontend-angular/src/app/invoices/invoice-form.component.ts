@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-invoice-form',
+  standalone: false,
   template: `
   <h2>Criar Nota Fiscal</h2>
   <div *ngIf="products.length">

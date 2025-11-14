@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-form',
+  standalone: false,
   template: `
   <h2>Cadastro de Produto</h2>
   <form [formGroup]="form" (ngSubmit)="save()">

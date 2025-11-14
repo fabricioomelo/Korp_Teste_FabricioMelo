@@ -3,6 +3,7 @@ import { InvoiceService } from '../services/invoice.service';
 
 @Component({
   selector: 'app-invoice-list',
+  standalone: false,
   template: `
   <h2>Notas Fiscais</h2>
   <div *ngFor="let inv of invoices">

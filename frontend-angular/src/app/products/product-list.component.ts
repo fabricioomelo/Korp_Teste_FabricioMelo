@@ -3,6 +3,7 @@ import { ProductService, Product } from '../services/product.service';
 
 @Component({
   selector: 'app-product-list',
+  standalone: false,
   template: `
   <h2>Produtos</h2>
   <table mat-table [dataSource]="products" class="mat-elevation-z8" style="width:100%">
