@@ -4,6 +4,7 @@ import (
     "encoding/json"
     "log"
     "net/http"
+    "github.com/rs/cors"
 )
 
 type Product struct {
@@ -30,16 +31,22 @@ func addProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    http.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
+    mux := http.NewServeMux()
+
+    mux.HandleFunc("/products", func(w http.ResponseWriter, r *http.Request) {
         if r.Method == http.MethodGet {
             getProducts(w, r)
         } else if r.Method == http.MethodPost {
             addProduct(w, r)
-        } else {
-            w.WriteHeader(http.StatusMethodNotAllowed)
         }
     })
 
+    handler := cors.New(cors.Options{
+            AllowedOrigins: []string{"http://localhost:4200"},
+            AllowCredentials: true,
+            Debug: true,
+    }).Handler(mux)
+
     log.Println("Service Inventory running on port 8081")
-    log.Fatal(http.ListenAndServe(":8081", nil))
+    log.Fatal(http.ListenAndServe(":8081", handler))
 }

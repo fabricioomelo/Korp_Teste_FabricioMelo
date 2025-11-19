@@ -4,6 +4,7 @@ import (
     "encoding/json"
     "log"
     "net/http"
+    "github.com/rs/cors"
 )
 
 type Invoice struct {
@@ -34,16 +35,22 @@ func addInvoice(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    http.HandleFunc("/invoices", func(w http.ResponseWriter, r *http.Request) {
+    mux := http.NewServeMux()
+
+    mux.HandleFunc("/invoices", func(w http.ResponseWriter, r *http.Request) {
         if r.Method == http.MethodGet {
             getInvoices(w, r)
         } else if r.Method == http.MethodPost {
             addInvoice(w, r)
-        } else {
-            w.WriteHeader(http.StatusMethodNotAllowed)
         }
     })
 
+    handler := cors.New(cors.Options{
+            AllowedOrigins: []string{"http://localhost:4200"},
+            AllowCredentials: true,
+            Debug: true,
+    }).Handler(mux)
+
     log.Println("Service Billing running on port 8082")
-    log.Fatal(http.ListenAndServe(":8082", nil))
+    log.Fatal(http.ListenAndServe(":8082", handler))
 }
